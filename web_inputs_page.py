@@ -1,2 +1,2 @@
-def inputs_page():
-    pass
+
+print("hello world")
