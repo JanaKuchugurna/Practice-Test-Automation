@@ -1,5 +1,5 @@
 from playwright.sync_api import expect
-from UI_testing.pages.input_page import InputPage
+from pages.input_page import InputPage
 
 
 def test_enter_valid_number(input_page: InputPage):
@@ -23,8 +23,8 @@ def test_invalid_input(input_page: InputPage):
 
 
 def test_increase_number(input_page: InputPage):
-    input_page.enter_number("10")
-    input_page.increase_value()
+    input_page.number_input.fill("10")  #тут цілком можна лишити звертання до елементу, бо абсолютно зрозуміло що відбувається
+    input_page.increase_value()  #тут допустимо винести в функцію, бо взаємодія з елементом не зовсім очевидно і метод краще пояснює, що робиться
     assert input_page.get_number_value() == "11"
 
 
@@ -33,7 +33,9 @@ def test_decrease_number(input_page: InputPage):
     input_page.decrease_value()
     assert input_page.get_number_value() == "9"
 
-
+# отут ти перевіряєш функцію очищення, але чомусь асерти ще й на те, що все заповнилось правильно. 
+# це значить в тебе тест виконує не одну функцію, значить на "все заповнилось правильно" - один тест,
+# а на "все очистилось" - тільки чисте заповнення даних
 def test_clear_input(input_page: InputPage):
     input_page.enter_number("123")
     input_page.enter_text("Test text")
@@ -56,9 +58,17 @@ def test_clear_input(input_page: InputPage):
     assert clear_values["password"]
     assert clear_values["date"]
 
+def test_clear_input_refactored(filled_input_page: InputPage):
+    filled_input_page.click_clear_button()
 
-def test_select_date_from_calendar(input_page: InputPage):
-    input_page.date_input.click()
-    input_page.page.locator("td:has-text('22')").click()
-    input_page.click_display_button()
-    assert input_page.output_date.text_content().strip() == "2025-03-22"
+    assert filled_input_page.number_input.input_value() == ""
+    assert filled_input_page.text_input.input_value() == ""
+    assert filled_input_page.password_input.input_value() == ""
+    assert filled_input_page.date_input.input_value() == ""
+
+#TODO треба розібратися, ще не мала часу
+# def test_select_date_from_calendar(input_page: InputPage):
+#     input_page.date_input.click()
+#     input_page.page.locator("td:has-text('22')").click()
+#     input_page.click_display_button()
+#     assert input_page.output_date.text_content().strip() == "2025-03-22"

@@ -6,12 +6,14 @@ from playwright.sync_api import Page
 class InputPage:
     def __init__(self, page: Page):
         self.page = page
-        self.number_input = page.locator('label:has-text("Input: Number")')
+        self.url = "https://practice.expandtesting.com/inputs"
+
+        self.number_input = page.get_by_label("Input: Number")  #TODO отак переробити всі лейби, просто за текстом
         self.text_input = page.locator('label:has-text("Input: Text")')
         self.password_input = page.locator('label:has-text("Input: Password")')
         self.date_input = page.locator('label:has-text("Input: Date")')
 
-        self.display_button = page.locator('button:has-text("Display Inputs")')
+        self.display_button = page.get_by_role('button', name="Display Inputs")  #TODO отак переробити кнопки
         self.clear_button = page.locator('button:has-text("Clear Inputs")')
 
         self.output_number = page.locator('#output-number')
@@ -19,6 +21,11 @@ class InputPage:
         self.output_password = page.locator('#output-password')
         self.output_date = page.locator('#output-date')
 
+    def open(self):
+        self.page.goto(self.url)
+
+    # TODO позабирати отакі методи на одну стрічку, які нічого не роблять, ми в тесті спокійно взаємодіємо з елементами
+    # внз включно з click_clear_button() я б забрала
     def enter_number(self, value: str):
         self.number_input.fill(value)
 
@@ -45,6 +52,8 @@ class InputPage:
             "date": self.output_date.text_content().strip()
         }
 
+    # це має бути не тут, це ми готуємо об'єкт для порівняння, 
+    # він не має бути в пейдж обджекті це раз, але й це не зовсім об'єкт, така штука має бути в тесті
     def check_clear_input(self):
         return {
             "number": self.number_input.input_value() == "",
