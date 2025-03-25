@@ -1,0 +1,31 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="2">
+            <item index="0" class="java.lang.String" itemvalue="driver-manager" />
+            <item index="1" class="java.lang.String" itemvalue="fake" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="W292" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="Kuchugurna_QALight.tests.test_demoqa_fields.full_name.find_element" />
+          <option value="Kuchugurna_QALight.lecture_selenium.date_pickers.pages.date_page_picker.*" />
+          <option value="Kuchugurna_QALight.HW8_check_boxes.pages.page_checkboxes.PageCheckboxes.checkbox_locators" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
