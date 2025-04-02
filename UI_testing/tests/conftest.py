@@ -1,10 +1,14 @@
 import pytest
 from playwright.sync_api import sync_playwright
+
+from UI_testing.pages.browser_information_page import BrowserInformationPage
 from UI_testing.pages.drag_and_drop_page import DragAndDropPage
 from UI_testing.pages.input_page import InputPage
 from UI_testing.pages.login_page import LoginPage
 from UI_testing.pages.otp_login_page import OtpLoginPage
 from UI_testing.pages.radio_button_page import RadioButtonPage
+from UI_testing.pages.dynamic_table_page import DynamicTable
+from UI_testing.pages.broken_images_page import BrokenImagePage
 
 @pytest.fixture(scope="session")
 def browser():
@@ -52,7 +56,23 @@ def radio_button_page(page):
     radio_button_page.navigate()
     return radio_button_page
 
+@pytest.fixture
+def browser_information_page(page):
+    browser_information_page = BrowserInformationPage(page)
+    browser_information_page.navigate()
+    return browser_information_page
 
+@pytest.fixture
+def dynamic_table_page(page):
+    dynamic_table_page = DynamicTable(page)
+    dynamic_table_page.navigate()
+    return dynamic_table_page
+
+@pytest.fixture
+def broken_image_page(page):
+    broken_image_page = BrokenImagePage(page)
+    broken_image_page.navigate()
+    return broken_image_page
 
 # це маленька фікстурка, яка наповнює сторінку якимись випадковими/дефолтними даними, щоб не вводити їх в тесті за потреби.
 @pytest.fixture
